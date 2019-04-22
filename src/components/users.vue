@@ -20,11 +20,27 @@
       </el-row>
       <!--表格-->
       <el-table :data="tableData" stripe style="width: 100%">
-        <el-table-column prop="date" label="日期" width="180">
+        <el-table-column prop="username" label="用户名"></el-table-column>
+        <el-table-column prop="email" label="邮箱"></el-table-column>
+        <el-table-column prop="mobile" label="电话"></el-table-column>
+        <el-table-column prop="role_name" label="角色"></el-table-column>
+        <el-table-column prop="mg_state" label="状态">
+
+          <template slot-scope="scope">
+            <!-- 使用当前行的数据acope.row 状态scope.row.mg_state-->
+            <!-- el-swicth 默认的是布尔值 -->
+            <el-switch
+              v-model="scope.row.mg_state"
+              inactive-color="#13ce66">
+            </el-switch>
+          </template>
         </el-table-column>
-        <el-table-column prop="name" label="姓名" width="180">
-        </el-table-column>
-        <el-table-column prop="address" label="地址">
+        <el-table-column label="操作">
+          <el-button-group>
+            <el-button icon="el-icon-edit" round></el-button>
+            <el-button icon="el-icon-delete"></el-button>
+            <el-button icon="el-icon-loading" round></el-button>
+          </el-button-group>
         </el-table-column>
       </el-table>
     </el-card>
@@ -37,32 +53,50 @@ export default {
     return {
       tableData: [{
         date: '2016-12-12',
-        name: '王小龙',
+        username: '王小龙',
+        email: '1232@qq.com',
+        role_name: '龙龙龙',
+        mobile: 1231241455223,
         address: '上海市冲阿萨德啊啊是否13223哦'
       },
       {
         date: '2016-12-12',
-        name: '李小二',
+        username: '李小二',
+        email: '1232@qq.com',
+        role_name: '李二牛',
+        mobile: 1231241455223,
         address: '上海市冲阿萨德啊啊是否13223哦'
       },
       {
         date: '2016-12-12',
-        name: '赵老三',
+        username: '赵老三',
+        email: '1232@qq.com',
+        role_name: '王二蛋',
+        mobile: 1231241455223,
         address: '上海市冲阿萨德啊啊是否13223哦'
       },
       {
         date: '2016-12-12',
-        name: '计老四',
+        username: '计老四',
+        email: '1232@qq.com',
+        role_name: '吉吉吉',
+        mobile: 1231241455223,
         address: '上海市冲阿萨德啊啊是否13223哦'
       },
       {
         date: '2016-12-12',
-        name: '刘老五',
+        username: '刘老五',
+        email: '1232@qq.com',
+        role_name: '王大锤',
+        mobile: 1231241455223,
         address: '上海市冲阿萨德啊啊是否13223哦'
       },
       {
         date: '2016-12-12',
-        name: '王小龙',
+        username: '王小龙',
+        email: '1232@qq.com',
+        role_name: '王大锤',
+        mobile: 1231241455223,
         address: '上海市冲阿萨德啊啊是否13223哦'
       }]
     }
