@@ -10,7 +10,7 @@
       <!-- 槽宽  :gutter="20"  :span="6" 多少份  默认24份-->
       <el-row :gutter="20">
         <el-col :span="6">
-            <el-input placeholder="请输入内容" type="text">
+            <el-input placeholder="请输入内容" v-model="userss">
               <el-button slot="append" icon="el-icon-search"></el-button>
             </el-input>
         </el-col>
@@ -19,13 +19,12 @@
         </el-col>
       </el-row>
       <!--表格-->
-      <el-table :data="tableData" stripe style="width: 100%">
+      <el-table :data="userList" stripe style="width: 100%">
         <el-table-column prop="username" label="用户名"></el-table-column>
         <el-table-column prop="email" label="邮箱"></el-table-column>
         <el-table-column prop="mobile" label="电话"></el-table-column>
         <el-table-column prop="role_name" label="角色"></el-table-column>
         <el-table-column prop="mg_state" label="状态">
-
           <template slot-scope="scope">
             <!-- 使用当前行的数据acope.row 状态scope.row.mg_state-->
             <!-- el-swicth 默认的是布尔值 -->
@@ -43,6 +42,16 @@
           </el-button-group>
         </el-table-column>
       </el-table>
+      <!-- 分页 -->
+      <div class="pager_container">
+        <el-pagination
+          @current-change="changePager"
+          :page-size="reqParams.pagesize"
+          background
+          layout="prev, pager, next"
+          :total="total">
+        </el-pagination>
+      </div>
     </el-card>
   </div>
 </template>
@@ -51,54 +60,38 @@ export default {
   name: 'Users',
   data () {
     return {
-      tableData: [{
-        date: '2016-12-12',
-        username: '王小龙',
-        email: '1232@qq.com',
-        role_name: '龙龙龙',
-        mobile: 1231241455223,
-        address: '上海市冲阿萨德啊啊是否13223哦'
+      userss: '',
+      userList: [],
+      reqParams: {
+        query: '',
+        pagenum: 1,
+        pagesize: 2
       },
-      {
-        date: '2016-12-12',
-        username: '李小二',
-        email: '1232@qq.com',
-        role_name: '李二牛',
-        mobile: 1231241455223,
-        address: '上海市冲阿萨德啊啊是否13223哦'
-      },
-      {
-        date: '2016-12-12',
-        username: '赵老三',
-        email: '1232@qq.com',
-        role_name: '王二蛋',
-        mobile: 1231241455223,
-        address: '上海市冲阿萨德啊啊是否13223哦'
-      },
-      {
-        date: '2016-12-12',
-        username: '计老四',
-        email: '1232@qq.com',
-        role_name: '吉吉吉',
-        mobile: 1231241455223,
-        address: '上海市冲阿萨德啊啊是否13223哦'
-      },
-      {
-        date: '2016-12-12',
-        username: '刘老五',
-        email: '1232@qq.com',
-        role_name: '王大锤',
-        mobile: 1231241455223,
-        address: '上海市冲阿萨德啊啊是否13223哦'
-      },
-      {
-        date: '2016-12-12',
-        username: '王小龙',
-        email: '1232@qq.com',
-        role_name: '王大锤',
-        mobile: 1231241455223,
-        address: '上海市冲阿萨德啊啊是否13223哦'
-      }]
+      // 总条数
+      total: 0
+    }
+  },
+  mounted () {
+    // 用户数据列表获取
+    this.getData()
+  },
+  methods: {
+    async getData () {
+      // 1.get请求 参数本来url?后面
+      // 2.联想post传参 post(url, {参数})
+      // 3.get传参 get(url,{params:{参数}})
+      const {data: {data, meta}} = await this.$http.get('users', {params: this.reqParams})
+      if (meta.status !== 200) return this.$message.error('获取用户属性失败')
+      // 列表数据
+      this.userList = data.users
+      // 总条数
+      this.total = data.total
+    },
+    changePager (newPage) {
+      // 进行分页查询 需求: 当前页码
+      // 获取数据前要使用当前页码
+      this.reqParams.pagenum = newPage
+      this.getData()
     }
   }
 }
