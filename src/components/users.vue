@@ -35,11 +35,13 @@
           </template>
         </el-table-column>
         <el-table-column label="操作">
-          <el-button-group>
-            <el-button icon="el-icon-edit" round></el-button>
-            <el-button icon="el-icon-delete"></el-button>
-            <el-button icon="el-icon-loading" round></el-button>
-          </el-button-group>
+          <template slot-scope="scope">
+            <el-button-group>
+              <el-button icon="el-icon-edit" round></el-button>
+              <el-button icon="el-icon-delete" @click="delUsers(scope.row.id)"></el-button>
+              <el-button icon="el-icon-loading" round></el-button>
+            </el-button-group>
+          </template>
         </el-table-column>
       </el-table>
       <!-- 分页 -->
@@ -173,6 +175,20 @@ export default {
       this.dialogFormVisible = true
       // 重置表单 内容 验证
       this.$refs.addForm.resetFields()
+    },
+    delUsers (id) {
+      // 删除用户ID
+      this.$confirm('是否删除该数据?', '温馨提示', {
+        confirmButtonText: '确定',
+        canceButtonText: '取消',
+        type: 'warning'
+      }).then(async () => {
+        // 点击了确认 发请求
+        const {data: {meta}} = await this.$http.delete(`users/${id}`)
+        if (meta.status !== 200) return this.$message.error('删除失败')
+        this.$message.success('删除成功')
+        this.getData()
+      }).catch(() => {})
     }
   }
 }
