@@ -2,9 +2,11 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '@/components/Login'
 import Home from '@/components/home/Home'
-import Welcome from '@/components/home/Welcome'
-import Users from '@/components/users/Users'
-
+import Welcome from '@/components/home/welcome'
+import Users from '@/components/users/users'
+import Rights from '@/components/auth/right'
+import Roles from '@/components/auth/roles'
+import Params from '@/components/goods/params'
 Vue.use(Router)
 
 const router = new Router({
@@ -26,7 +28,10 @@ const router = new Router({
       // 二级路由配置 将会在home组件下使用
       children: [
         {path: '/welcome', name: 'welcome', component: Welcome},
-        {path: '/users', name: 'users', component: Users}
+        {path: '/users', name: 'users', component: Users},
+        {path: '/rights', name: 'rights', component: Rights},
+        {path: '/roles', name: 'roles', component: Roles},
+        {path: '/params', name: 'params', component: Params}
       ]
     }
   ]
