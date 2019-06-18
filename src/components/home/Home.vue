@@ -2,13 +2,13 @@
   <el-container class="home_container">
     <el-header class="home_header">
         <el-button icon="iconfont icon-yingyongguanli" circle size="mini" @click="toggleMenu()"></el-button>
-        <span class="header_span">品优购后台管理系统</span>
+        <span class="header_span">For-DM数据管理系统</span>
         <el-button type="danger" round class="layout" size="mini" @click="logout()">退出</el-button>
     </el-header>
     <el-container>
       <el-aside class="home_aside" :width="collapse?'65px':'180px'">
         <el-menu
-            :default-active="$route.name"
+            :default-active="'/'+$route.name"
             router
             :unique-opened="true"
             :collapse="collapse"
@@ -24,7 +24,7 @@
                 <span>&nbsp;{{item.authName}}</span>
                 </template>
                 <!-- 二级菜单 -->
-                <el-menu-item :index="lastItem.path" v-for="lastItem in item.children" :key="lastItem.id">
+                <el-menu-item :index="'/'+lastItem.path" v-for="lastItem in item.children" :key="lastItem.id">
                   <i class="el-icon-menu"></i>
                   <span>{{lastItem.authName}}</span>
                 </el-menu-item>

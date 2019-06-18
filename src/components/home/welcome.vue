@@ -1,6 +1,6 @@
 <template>
   <div class="welcome_container">
-    <h1>欢迎来到品优购后台管理系统</h1>
+    <h1>For-DM数据管理系统</h1>
     <img src="../../assets/images/1.jpg" alt="">
   </div>
 </template>

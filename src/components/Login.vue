@@ -1,7 +1,7 @@
 <template>
     <div class="login_container">
         <div class="box">
-            <img src="../assets/images/hm.png" alt="">
+            <img src="../assets/images/logo.png" alt="">
             <el-form ref="form" :model="form" :rules="rules">
                 <el-form-item prop="username">
                     <el-input prefix-icon="iconfont icon-icon_zhanghao" placeholder="请输入用户名" v-model="form.username"></el-input>
@@ -56,10 +56,14 @@ export default {
 }
 </script>
 <style scoped>
+.box img {
+  width: 208px;
+  height: 56px;
+}
 .login_container{
   width: 100%;
   height: 100%;
-  background: linear-gradient(45deg, #EEF7FE, #105763);
+  background: linear-gradient(45deg, #EEF7FE, #041e50);
 }
 .login_container .box {
   width: 400px;

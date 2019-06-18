@@ -1,9 +1,9 @@
 <template>
-  <div class="goods_container">
+  <div class="orders_container">
     <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>商品管理</el-breadcrumb-item>
-      <el-breadcrumb-item>商品列表</el-breadcrumb-item>
+      <el-breadcrumb-item>订单管理</el-breadcrumb-item>
+      <el-breadcrumb-item>订单列表</el-breadcrumb-item>
     </el-breadcrumb>
     <el-card>
       <el-row :gutter="20">
@@ -12,24 +12,26 @@
             <el-button @click="search()" slot="append" icon="el-icon-search"></el-button>
           </el-input>
         </el-col>
-        <el-col :span="18">
-          <el-button type="primary" @click="toAdd()" plain>添加商品</el-button>
-        </el-col>
       </el-row>
-      <el-table :data="goodsList">
+      <el-table :data="ordersList">
         <el-table-column type="index"></el-table-column>
-        <el-table-column label="商品名称" width="300px" prop="goods_name"></el-table-column>
-        <el-table-column label="价格" prop="goods_price"></el-table-column>
-        <el-table-column label="重量" prop="goods_weight"></el-table-column>
-        <el-table-column label="创建时间">
+        <el-table-column label="订单编号" prop="order_number"></el-table-column>
+        <el-table-column label="订单金额" prop="order_price"></el-table-column>
+        <el-table-column label="是否付款">
           <template slot-scope="scope">
-            {{scope.row.add_time|ft}}
+            {{scope.row.pay_status === '0' ? '未支付' : '已支付'}}
+          </template>
+        </el-table-column>
+        <el-table-column label="是否发货" prop="is_send"></el-table-column>
+        <el-table-column label="下单时间">
+          <template slot-scope="scope">
+            {{scope.row.create_time|ft}}
           </template>
         </el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
-            <el-button icon="el-icon-edit" circle></el-button>
-            <el-button icon="el-icon-delete" @click="delGoods(scope.row.goods_id)" circle></el-button>
+            <el-button icon="el-icon-edit" @click="editDialogFormVisible = true" circle></el-button>
+            <el-button icon="el-icon-location" @click="wlDialogFormVisible = true" circle></el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -46,13 +48,11 @@
     </el-card>
   </div>
 </template>
-
 <script>
-import mixin from './GoodsMixin'
+import mixin from './OrdersMixin'
 export default {
   mixins: [mixin]
 }
 </script>
-
 <style scoped>
 </style>

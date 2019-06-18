@@ -4,6 +4,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 import App from './App'
 import router from './router'
 import moment from 'moment'
+// 依赖全局样式文件
 import './assets/css/global.css'
 // 依赖配置好的axios
 import axios from './http'
@@ -19,7 +20,7 @@ Vue.config.productionTip = false
 Vue.filter('ft', (v) => {
   return moment(v * 1000).format('YYYY-MM-DD HH:mm:ss')
 })
-// 入口文件的作用:导入其他依赖
+// 入口文件的作用:导入其他依赖~
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
